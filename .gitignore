@@ -1,0 +1,10 @@
+# ELFE data — restricted access (INED), never committed
+data/
+
+# R workspace files
+.RData
+.Rhistory
+.Rproj.user/
+
+# macOS
+.DS_Store
