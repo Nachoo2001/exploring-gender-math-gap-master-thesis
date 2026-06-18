@@ -24,7 +24,7 @@ Replication code for my master's thesis analysing the gender gap in mathematics 
 ## Data
 
 The analysis uses three ELFE survey files:
-- `DATA_DEM_1055_RG.csv` — main child development dataset
+- `DATA_DEM_1055_RG.csv` — main dataset
 - `EQR12_VARIABLESOCIODEMO.csv` — constructed sociodemographic variables
 - `EQR39_SCOREIDE.csv` — cognitive development scores
 
