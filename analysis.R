@@ -1350,36 +1350,6 @@ etable(list("Filles + Score" = prudencio_filles_score),
        file = here("tables", "table7_toy_choice_parent_girls.tex"))
 
 
-## Table 8 – Quantile regression: gender gap across quantiles ------------------
-
-taus      <- seq(0.1, 0.9, by = 0.1)
-qr_models <- lapply(taus, function(tau) {
-  rq(A06X_SCMOYMATH_rescaled ~ sexe_dummy + A06X_PUBLPRIVc_num + A06X_AGEM +
-       mère_educ_5ans + père_educ_5ans + mere_emploi + pere_emploi +
-       chez_qui_vit_5ans + migration_père + migration_mère +
-       A04X_SCmoymath + A04X_SCmoylect + revenu_part_dec_5y,
-     tau = tau, data = regression_data)
-})
-
-gender_gap_by_quantile <- data.frame(
-  tau      = taus,
-  estimate = sapply(qr_models, function(m) coef(m)["sexe_dummy"]),
-  se       = sapply(qr_models, function(m) summary(m, se = "boot")$coefficients["sexe_dummy","Std. Error"])
-) %>%
-  mutate(lower = estimate - 1.96 * se, upper = estimate + 1.96 * se)
-
-ggplot(gender_gap_by_quantile, aes(x = tau, y = estimate)) +
-  geom_line(color = "#0072B2", linewidth = 1.2) +
-  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "#0072B2", alpha = 0.2) +
-  geom_hline(yintercept = 0, linetype = "dashed") +
-  labs(title = "Gender Gap in Math Scores Across Quantiles",
-       x = "Quantile (τ)", y = "Coefficient on Gender (Female vs. Male)") +
-  theme_minimal()
-
-kable(gender_gap_by_quantile, digits = 4,
-      col.names = c("Quantile (τ)","Estimate","Std. Error","Lower 95% CI","Upper 95% CI"),
-      caption = "Gender Coefficient (Female vs. Male) Across Math Score Quantiles")
-
 
 # 4. OTHER ANALYSES ============================================================
 
